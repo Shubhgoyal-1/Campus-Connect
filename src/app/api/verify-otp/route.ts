@@ -6,7 +6,7 @@ export async function POST(request: Request) {
     try {
         const { username, otp } = await request.json();
         const decodedUsername = decodeURIComponent(username)
-        const user = await UserModel.findOne({ username: decodedUsername })
+        const user = await UserModel.findOne({ username: decodedUsername }).select("+otp")
         if (!user) {
             return Response.json({
                 success: false,

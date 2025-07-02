@@ -10,7 +10,7 @@ export async function GET(request: Request) {
         const college = searchParams.get("college")?.trim();
         const page = parseInt(searchParams.get("page") || "1");
         const limit = parseInt(searchParams.get("limit") || "10");
-
+        // console.log(skill)
         if (!skill) {
             return Response.json({
                 success: false,
@@ -23,17 +23,20 @@ export async function GET(request: Request) {
             skills: skill,
             isVerified: true
         };
+        // console.log(filter)
         if (college) {
             filter.college = college
         }
         const totalUsers = await UserModel.countDocuments(filter);
         const totalPages = Math.ceil(totalUsers / limit);
         const skip = (page - 1) * limit;
+        // console.log(totalPages,totalUsers)
 
         const users = await UserModel.find(filter)
         .select("username email college bio skills profilePic")
         .skip(skip)
         .limit(limit);
+        // console.log(users)
 
         if (!users || users.length === 0) {
             return Response.json({
