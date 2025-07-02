@@ -9,11 +9,13 @@ export interface User extends Document {
     bio?: string
     avatarUrl?: string
     connections: mongoose.Types.ObjectId[]
+    incomingRequests: mongoose.Types.ObjectId[]
+    outgoingRequests: mongoose.Types.ObjectId[]
     isVerified: boolean
     otp?: string
     otpExpiry?: Date
     createdAt: Date
-    canTeach:boolean
+    canTeach: boolean
 }
 
 const UserSchema: Schema<User> = new Schema({
@@ -40,7 +42,7 @@ const UserSchema: Schema<User> = new Schema({
     },
     skills: {
         type: [String],
-        default:[],
+        default: [],
     },
     bio: {
         type: String
@@ -51,26 +53,32 @@ const UserSchema: Schema<User> = new Schema({
     connections: [
         { type: mongoose.Schema.Types.ObjectId, ref: "User" }
     ],
-    isVerified:{
-        type:Boolean,
-        default:false
+    incomingRequests: [
+        { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+    ],
+    outgoingRequests: [
+        { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+    ],
+    isVerified: {
+        type: Boolean,
+        default: false
     },
-    otp:{
-        type:String,
-        select:false
+    otp: {
+        type: String,
+        select: false
     },
-    otpExpiry:{
-        type:Date,
+    otpExpiry: {
+        type: Date,
     },
     createdAt: {
         type: Date,
         default: Date.now,
     },
-    canTeach:{
-        type:Boolean,
-        default:false
+    canTeach: {
+        type: Boolean,
+        default: false
     }
-},{
+}, {
     timestamps: true
 })
 
