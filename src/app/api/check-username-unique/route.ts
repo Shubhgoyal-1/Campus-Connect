@@ -16,7 +16,7 @@ export async function GET(request: Request) {
         const { searchParams } = new URL(request.url)
         // console.log(searchParams);
         const queryParam = {
-            username: searchParams.get("username")
+            username: searchParams.get("username") || ""
         }
         const result = usernameQuerySchema.safeParse(queryParam)
         // console.log(result)
@@ -39,7 +39,7 @@ export async function GET(request: Request) {
         if (existingVerifiedUser) {
             return Response.json({
                 success: false,
-                messgae: "Username already exists"
+                message: "Username already exists"
             }, {
                 status: 400
             })

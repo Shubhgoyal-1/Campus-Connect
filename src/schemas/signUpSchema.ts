@@ -9,6 +9,6 @@ export const signUpSchema = z.object({
     email: z.string().email({message:"Please enter a valid email address"}),
     password: z.string().min(6,{message:"Password must be at least 6 characters"}),
     college: z.string(),
-    skills: z.array(z.string()),
+    skills: z.array(z.string()).optional(),
     bio: z.string().optional()
 })
