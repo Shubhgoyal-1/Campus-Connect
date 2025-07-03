@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 export { default } from 'next-auth/middleware'
 import { getToken } from 'next-auth/jwt'
 
-const authPages = ['/', '/sign-in', '/sign-up'];
+const authPages = ['/sign-in', '/sign-up'];
 export async function middleware(request: NextRequest) {
 
     const token = await getToken({ req: request });
