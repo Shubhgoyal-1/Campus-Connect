@@ -19,9 +19,17 @@ export async function GET(request: Request) {
         const user = await UserModel.findOne({
             username: session.user.username
         })
+        if(!user){
+            return Response.json({
+                success: false,
+                message: "User Not Found"
+            }, {
+                status: 404
+            })
+        }
         return Response.json({
             success: true,
-            skills: user?.skills
+            skills: user.skills
         }, {
             status: 200
         })

@@ -5,27 +5,55 @@ export async function GET(request: Request) {
     await dbConnect()
     try {
         const { searchParams } = new URL(request.url)
-
+        const username = searchParams.get('username')?.trim();
         const skill = searchParams.get("skill")?.trim();
         const college = searchParams.get("college")?.trim();
         const page = parseInt(searchParams.get("page") || "1");
         const limit = parseInt(searchParams.get("limit") || "10");
         // console.log(skill)
-        if (!skill) {
-            return Response.json({
-                success: false,
-                message: "Please enter a valid skill"
-            }, {
-                status: 400
+        if (username) {
+            const userMatches = await UserModel.find({
+                username: { $regex: new RegExp("^" + username, "i") },
+                isVerified: true,
             })
+            .select("username")
+            .limit(5);
+
+            // If exact match found and only 1 match → treat as full search
+            const exactUser = userMatches.find(user => user.username.toLowerCase() === username.toLowerCase());
+
+            if (exactUser) {
+                const fullUser = await UserModel.findOne({
+                    username: exactUser.username,
+                    isVerified: true,
+                }).select("username email college bio skills profilePic");
+
+                return Response.json({ success: true, users: [fullUser] }, { status: 200 });
+            }
+
+            // Else return suggestions
+            return Response.json({
+                success: true,
+                suggestions: userMatches.map(u => u.username),
+            }, { status: 200 });
         }
+
+
         const filter: any = {
-            skills: skill,
             isVerified: true
         };
         // console.log(filter)
+        if (skill) {
+            filter.skills = skill
+        }
         if (college) {
             filter.college = college
+        }
+        if (!skill && !college) {
+            return Response.json(
+                { success: false, message: "Please provide a username, skill, or college to search." },
+                { status: 400 }
+            );
         }
         const totalUsers = await UserModel.countDocuments(filter);
         const totalPages = Math.ceil(totalUsers / limit);
@@ -33,9 +61,9 @@ export async function GET(request: Request) {
         // console.log(totalPages,totalUsers)
 
         const users = await UserModel.find(filter)
-        .select("username email college bio skills profilePic")
-        .skip(skip)
-        .limit(limit);
+            .select("username email college bio skills profilePic")
+            .skip(skip)
+            .limit(limit);
         // console.log(users)
 
         if (!users || users.length === 0) {
@@ -50,11 +78,11 @@ export async function GET(request: Request) {
         return Response.json({
             success: true,
             users,
-            pagination:{
+            pagination: {
                 totalUsers,
                 totalPages,
                 currentPage: page,
-                perPage:limit
+                perPage: limit
             }
         }, {
             status: 200

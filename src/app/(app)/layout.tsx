@@ -8,14 +8,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        <TopRibbon />
-        <div className="flex">
-          <Sidebar />
-          <main className="flex-1 p-6 overflow-y-auto">{children}</main>
-        </div>
-      </body> 
-    </html>
+    <div>
+      <TopRibbon />
+      <div className="flex">
+        <Sidebar />
+        <main className="flex-1 p-6 overflow-y-auto">{children}</main>
+      </div>
+    </div>
   );
 }

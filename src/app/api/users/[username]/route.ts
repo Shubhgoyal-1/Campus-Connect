@@ -15,7 +15,7 @@ export async function GET(request: Request, { params }: { params: { username: st
             })
         }
 
-        const user = await UserModel.findOne({ username: username, isVerified: true }).select("username bio college skills profilePic");
+        const user = await UserModel.findOne({ username: username, isVerified: true }).select("username bio college skills profilePic connections incomingRequests outgoingRequests canTeach");
         if (!user) {
             return Response.json({
                 success: false,

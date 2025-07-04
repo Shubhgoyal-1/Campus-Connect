@@ -17,7 +17,12 @@ export async function GET(request: Request) {
         }
         const user = await UserModel.findOne({
             username: session.user.username
-        }).select("-password -otp -otpExpiry");
+        })
+        .select("-password -otp -otpExpiry")
+        .populate("connections", "username avatarUrl _id")
+        .populate("incomingRequests", "username avatarUrl _id")
+        .populate("outgoingRequests", "username avatarUrl _id")
+
         if (!user) {
             return Response.json({
                 success: false,

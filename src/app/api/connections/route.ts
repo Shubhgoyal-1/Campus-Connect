@@ -3,7 +3,6 @@ import UserModel from "@/model/User.model";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/options";
 import mongoose from "mongoose";
-
 export async function GET(request: Request) {
     await dbConnect();
     try {
@@ -41,7 +40,7 @@ export async function GET(request: Request) {
             status: 200
         })
     } catch (error) {
-        console.log("Error in Getting Connections" , error)
+        console.log("Error in Getting Connections", error)
         return Response.json({
             success: false,
             message: "Something went wrong"
@@ -68,7 +67,7 @@ export async function POST(request: Request) {
         const { recieverUsername } = await request.json();
         const sender = await UserModel.findOne({ username: session.user.username })
         const reciever = await UserModel.findOne({ username: recieverUsername })
-
+        console.log("reciever", reciever, "sender", sender)
         if (!reciever) {
             return Response.json({
                 success: false,
@@ -207,7 +206,9 @@ export async function DELETE(request: Request) {
             })
         }
 
-        const { targetUsername, type } = await request.json();
+        const { searchParams } = new URL(request.url);
+        const targetUsername = searchParams.get("targetUsername");
+        const type = searchParams.get("type");
 
         const user = await UserModel.findOne({ username: session.user.username })
         const target = await UserModel.findOne({ username: targetUsername })
