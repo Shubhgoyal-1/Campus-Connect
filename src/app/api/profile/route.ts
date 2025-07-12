@@ -72,17 +72,13 @@ export async function PUT(request: Request) {
                 status: 404
             })
         }
-        /*profile will look like 
-        profile : {
-            bio: "abc",
-            avatarurl: "abc",
-            college: "abc",
-        }
-        */
+        
         const updateData = await request.json()
+        console.log(updateData)
         const updatedUser = await UserModel.findOneAndUpdate({
             username: session.user.username
         }, updateData, { new: true })
+        
         return Response.json({
             success: true,
             message: "User Updated Successfully",

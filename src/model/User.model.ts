@@ -21,7 +21,7 @@ export interface User extends Document {
 const UserSchema: Schema<User> = new Schema({
     username: {
         type: String,
-        requird: [true, "Username is required"],
+        required: [true, "Username is required"],
         unique: true,
         trim: true,
     },
