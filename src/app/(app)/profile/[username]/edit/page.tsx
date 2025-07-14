@@ -9,14 +9,16 @@ import { toast } from 'sonner'
 import axios from 'axios'
 import Image from 'next/image'
 import { Switch } from "@/components/ui/switch"
-import { getSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 const page = () => {
-    const session = getSession()
-
+    const router = useRouter()
     const [loading, setLoading] = useState(false);
     const [currentAvatar, setCurrentAvatar] = useState<string | null>(null)
     const [avatarFile, setAvatarFile] = useState<File | null>(null);
+    const [skills, setSkills] = useState<string[]>([])
+    const [username,setUsername] = useState<String>('')
+
 
     const {
         register,
@@ -70,6 +72,10 @@ const page = () => {
                 setValue('avatarUrl', user.avatarUrl)
                 setValue('canTeach', user.canTeach)
                 setCurrentAvatar(user.avatarUrl)
+                setUsername(user.username)
+                if (user.skills) {
+                    setSkills(user.skills)
+                }
             } catch (error) {
                 toast.error('Failed to load profile')
             }
@@ -120,6 +126,33 @@ const page = () => {
                         {errors.bio && <p className="text-red-400 text-sm mt-1">{errors.bio.message}</p>}
                     </div>
 
+                    {skills.length > 0 && (
+                        <div className="space-y-2">
+                            <label className="block text-lg font-semibold">Your Skills</label>
+                            <div className="flex flex-wrap gap-2">
+                                {skills.map((skill, i) => (
+                                    <span
+                                        key={i}
+                                        className="px-3 py-1 bg-white/20 border border-white/30 rounded-full text-sm text-white"
+                                    >
+                                        {skill}
+                                    </span>
+                                ))}
+                            </div>
+
+                            {/* Edit Skills Button aligned right */}
+                            <div className="flex justify-end mt-2">
+                                <button
+                                    type="button"
+                                    onClick={() => router.push(`/profile/${username}/edit/skills`)}
+                                    className="bg-purple-600 text-white font-semibold px-6 py-2 rounded-full text-sm hover:bg-purple-700 transition"
+                                >
+                                    Edit Skills
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
                     {/* Can Teach Switch */}
                     <div className="flex items-center justify-between pt-1">
                         <label className="text-lg font-semibold">Willing to teach others</label>
@@ -128,7 +161,7 @@ const page = () => {
                                 control={control}
                                 name="canTeach"
                                 render={({ field: { value, onChange } }) => (
-                                    <Switch checked={value} onCheckedChange={onChange} />
+                                    <Switch checked={value} onCheckedChange={onChange} className={value ? "bg-green-500 data-[state=checked]:bg-green-500" : "bg-red-500 data-[state=unchecked]:bg-red-500"} />
                                 )}
                             />
                         </div>

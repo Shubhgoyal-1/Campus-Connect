@@ -17,29 +17,44 @@ const navItems = [
 export default function Sidebar() {
     const { data: session } = useSession()
     const user = session?.user
-
     const pathname = usePathname()
 
     return (
-        <aside className="bg-white/10 backdrop-blur-md p-4 rounded text-center font-medium border border-white/20 w-[240px] min-h-screen py-8 px-4 flex flex-col">
+        <aside className="bg-[#1a132f] w-[240px] flex flex-col px-4 py-6 border-r border-white/20 min-h-screen">
+            {/* Navigation items */}
             <nav className="flex flex-col gap-4">
-
                 {navItems.map(({ name, href }) => {
-                    const actualHref = name==='Profile' ? `/profile/${user?.username}` : href
+                    const actualHref = name === 'Profile' ? `/profile/${user?.username}` : href
                     return (
-                        <Button key={name} variant="ghost" className={cn('text-white h-15 text-md',
-                            pathname === actualHref && 'bg-white font-semibold text-black'
-                        )}>
-                            <Link
-                                href={actualHref}
-                            >
-                                {name}
-                            </Link>
+                        <Button
+                            key={name}
+                            variant="ghost"
+                            className={cn(
+                                'text-white justify-start h-12 px-4 text-md w-full',
+                                pathname === actualHref && 'bg-white font-semibold text-black'
+                            )}
+                            asChild
+                        >
+                            <Link href={actualHref}>{name}</Link>
                         </Button>
-                        )
-                }
-                )}
+                    )
+                })}
             </nav>
+
+            {/* Settings button pushed to bottom */}
+            <div className="mt-auto pt-8">
+                <Button
+                    variant="ghost"
+                    className={cn(
+                        'text-white justify-start h-12 px-4 text-md w-full',
+                        pathname === '/settings' && 'bg-white font-semibold text-black'
+                    )}
+                    asChild
+                >
+                    <Link href="/settings">Settings</Link>
+                </Button>
+            </div>
         </aside>
+
     )
 }

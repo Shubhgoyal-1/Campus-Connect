@@ -33,7 +33,6 @@ export default function DashboardPage() {
     const [collegePage, setCollegePage] = useState(0)
     const [mentorPage, setMentorPage] = useState(0)
 
-
     const fetchMentors = async () => {
         try {
             const res = await axios.get(`/api/mentors?limit=5&skip=${mentorPage * 5}`)
@@ -78,9 +77,17 @@ export default function DashboardPage() {
     // console.log(skills)
 
 
-    const suggestedSkills: string[] = skillList.filter((skill) => !skills.includes(skill));
-    const shuffledSkills = [...suggestedSkills].sort(() => Math.random() - 0.5);
-    const randomEight = shuffledSkills.slice(0, 8);
+    // const suggestedSkills: string[] = skillList.filter((skill) => !skills.includes(skill));
+    // const shuffledSkills = [...suggestedSkills].sort(() => Math.random() - 0.5);
+    // const randomEight = shuffledSkills.slice(0, 8);
+    const [randomEight, setRandomEight] = useState<string[]>([]);
+
+    useEffect(() => {
+        const suggested = skillList.filter(skill => !skills.includes(skill));
+        const shuffled = [...suggested].sort(() => Math.random() - 0.5);
+        setRandomEight(shuffled.slice(0, 8));
+    }, [skills]);
+
 
     return (
         <div className="relative min-h-screen w-full overflow-hidden">
