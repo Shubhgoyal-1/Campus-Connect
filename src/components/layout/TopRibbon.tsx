@@ -13,7 +13,7 @@ export default function TopRibbon() {
       <h1 className="text-2xl font-bold font-serif text-white">Campus Connect</h1>
       {session ? (
         <>
-          <Button variant='ghost' onClick={() => signOut()} className="w-full md:w-auto text-white" >
+          <Button variant='ghost' onClick={() => signOut({callbackUrl: '/'})} className="w-full md:w-auto text-white" >
             Logout
             <LogOut className="w-4 h-4" />
           </Button>

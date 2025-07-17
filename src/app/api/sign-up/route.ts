@@ -8,10 +8,9 @@ export async function POST(request: Request) {
 
     try {
         const body = await request.json();
-        //not taking skills as they can be added later accordingly 
         //bio is optional
         //college should be taken from the given options
-        const { username, email, password, college, bio } = body;
+        const { username, email, password, college, bio ,skills } = body;
 
         const existingUserVerifiedByUsername = await UserModel.findOne({
             username: username,
@@ -58,6 +57,7 @@ export async function POST(request: Request) {
                 otp: otp,
                 otpExpiry: expiryDate,
                 isVerified: false,
+                skills:skills,
             })
             await newUser.save();
         }

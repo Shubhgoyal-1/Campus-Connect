@@ -38,7 +38,14 @@ const UserCard = ({ user }: { user: { username: string; skills: string[]; avatar
         />
       </div>
       <h4 className="text-lg font-semibold">{user.username}</h4>
-      <p className="text-sm text-gray-300">Skills: {user.skills.join(', ')}</p>
+      <div className="flex flex-wrap justify-center gap-1 text-xs text-gray-300">
+        {user.skills.slice(0, 2).map((skill, i) => (
+          <span key={i} className="bg-white/10 px-2 py-0.5 rounded-full">
+            {skill}
+          </span>
+        ))}
+        {user.skills.length > 2 && <span className="text-gray-400">+{user.skills.length - 3} more</span>}
+      </div>
       <div className="flex gap-2 justify-space-between ">
 
         <Button className="px-3 py-1 bg-[#2c1a47] hover:bg-[#3a235e] rounded text-sm">

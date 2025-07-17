@@ -118,21 +118,24 @@ export default function DashboardPage() {
                 {/* Suggested Peers */}
                 <section>
                     <h2 className="text-xl font-semibold mb-3">Suggested Peers</h2>
-                    <ScrollArea className="w-full rounded-md whitespace-nowrap">
+                    <ScrollArea className="w-full rounded-md no-scrollbar overflow-x-auto">
                         <div className="flex w-max space-x-4 p-4">
-                            <div className="flex gap-4 overflow-x-auto pb-2">
-                                {mentors.map((user, i) => (
-                                    <UserCard key={i} user={{
+                            {mentors.map((user, i) => (
+                                <UserCard
+                                    key={i}
+                                    user={{
                                         username: user.username,
                                         skills: user.skills,
-                                        avatarUrl: user?.avatarUrl || "/Screenshot 2024-04-21 191535.png"
-                                    }} />
-                                ))}
-                            </div>
+                                        avatarUrl: user?.avatarUrl || "/Screenshot 2024-04-21 191535.png",
+                                    }}
+                                />
+                            ))}
                         </div>
-                        <ScrollBar className='h-0' orientation="horizontal" />
+                        <ScrollBar orientation="horizontal" className="hidden" />
                     </ScrollArea>
                 </section>
+
+
 
                 {/* From Your College */}
                 <section>

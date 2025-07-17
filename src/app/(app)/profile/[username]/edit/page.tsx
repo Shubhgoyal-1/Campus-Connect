@@ -47,6 +47,7 @@ const page = () => {
             }
             await axios.put('/api/profile', data)
             toast.success("Profile updated successfully!");
+            router.push(`/profile/${username}`)
             // toast.success(data.toString);
         } catch (error) {
             toast.error("Something went wrong");
@@ -126,7 +127,7 @@ const page = () => {
                         {errors.bio && <p className="text-red-400 text-sm mt-1">{errors.bio.message}</p>}
                     </div>
 
-                    {skills.length > 0 && (
+                    {skills.length >= 0 && (
                         <div className="space-y-2">
                             <label className="block text-lg font-semibold">Your Skills</label>
                             <div className="flex flex-wrap gap-2">

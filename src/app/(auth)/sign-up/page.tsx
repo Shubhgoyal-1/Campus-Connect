@@ -74,6 +74,7 @@ const page = () => {
             ? selectedSkills.filter((s) => s !== skill)
             : [...selectedSkills, skill]
         setValue('skills', updated, { shouldValidate: true })
+        console.log(updated)
     }
 
     const onSubmit = async (data: z.infer<typeof signUpSchema>) => {
