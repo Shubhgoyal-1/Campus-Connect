@@ -31,6 +31,8 @@
     "react-email": "^4.0.17",
     "react-hook-form": "^7.59.0",
     "resend": "^4.6.0",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
     "sonner": "^2.0.5",
     "tailwind-merge": "^3.3.1",
     "three": "^0.178.0",

@@ -9,7 +9,7 @@ import { useSession } from 'next-auth/react'
 const navItems = [
     { name: 'Dashboard', href: '/dashboard' },
     { name: 'Search', href: '/dashboard/search' },
-    { name: 'Messages', href: '/messages' },
+    { name: 'Messages', href: '/chat' },
     { name: 'Notifications', href: '/notifications' },
     { name: 'Profile', href: '/' },
 ]

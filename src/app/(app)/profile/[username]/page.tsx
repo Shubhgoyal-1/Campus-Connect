@@ -73,8 +73,8 @@ const page = () => {
                         <div className="w-36 h-36 rounded-full overflow-hidden border-4 border-white">
                             <Image src={user.avatarUrl || "/Screenshot 2024-04-21 191535.png"} alt="profile" width={144} height={144} className="object-cover w-full h-full" />
                         </div>
-                        <h3 className="mt-4 text-xl font-semibold">{params.username}</h3>
-                        <Button onClick={() => router.push(`/profile/${params.username}/edit`)} className="bg-blue-400 text-black hover:bg-blue-500 mt-4">
+                        <h3 className="mt-4 text-xl font-semibold">{params!.username}</h3>
+                        <Button onClick={() => router.push(`/profile/${params!.username}/edit`)} className="bg-blue-400 text-black hover:bg-blue-500 mt-4">
                             Edit Profile
                         </Button>
                     </div>

@@ -1,4 +1,4 @@
-import mongoose , {Schema,Document} from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
 
 
 export interface Message extends Document {
@@ -6,7 +6,8 @@ export interface Message extends Document {
     receiverId: mongoose.Types.ObjectId;
     message: string;
     timestamp: Date;
-    read:boolean;
+    read: boolean;
+    conversationId: mongoose.Types.ObjectId;
 }
 
 const MessageSchema: Schema<Message> = new Schema({
@@ -31,6 +32,11 @@ const MessageSchema: Schema<Message> = new Schema({
     read: {
         type: Boolean,
         default: false,
+    },
+    conversationId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Conversation',
+        required: true,
     },
 });
 

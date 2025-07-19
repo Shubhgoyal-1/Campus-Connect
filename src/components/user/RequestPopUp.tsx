@@ -26,7 +26,7 @@ export const RequestPopUp: React.FC<RequestPopUpProps> = ({
   const handleAction = async (username: string, action: 'accept' | 'reject' | 'cancel' | 'remove') => {
     try {
       if (action === 'accept') {
-        const res = await axios.put('/api/connections', { username })
+        const res = await axios.put('/api/connections', { requestSenderUsername:username })
         toast.success(res.data.message)
       }
       else {

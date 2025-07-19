@@ -18,7 +18,7 @@ export async function GET(request: Request) {
         }
 
         const user = await UserModel.findOne({ username: session.user.username })
-            .populate("connections", "username email college bio avatarUrl skills")
+            .populate("connections", "username avatarUrl _id")
             .populate("incomingRequests", "username email college bio avatarUrl skills")
             .populate("outgoingRequests", "username email college bio avatarUrl skills")
 
@@ -146,7 +146,8 @@ export async function PUT(request: Request) {
 
         const acceptor = await UserModel.findOne({ username: session.user.username })
         const requestSender = await UserModel.findOne({ username: requestSenderUsername })
-
+        console.log(requestSenderUsername)
+        console.log(requestSender)
         if (!acceptor) {
             return Response.json({
                 success: false,
