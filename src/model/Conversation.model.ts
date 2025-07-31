@@ -2,7 +2,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 
 export interface Conversation extends Document {
     participants: mongoose.Types.ObjectId[]; // user IDs
-    lastMessage?: string;
+    conversationKey: string; // unique key for the conversation
     updatedAt: Date;
 }
 
@@ -15,9 +15,11 @@ const ConversationSchema: Schema<Conversation> = new Schema(
                 required: true,
             },
         ],
-        lastMessage: {
+        conversationKey: {
             type: String,
-        },
+            unique: true,
+            required: true
+        }
     },
     {
         timestamps: true,

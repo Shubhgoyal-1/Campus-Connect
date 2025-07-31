@@ -20,7 +20,7 @@ export default function Sidebar() {
     const pathname = usePathname()
 
     return (
-        <aside className="bg-[#1a132f] w-[240px] flex flex-col px-4 py-6 border-r border-white/20 min-h-screen">
+        <aside className="bg-[#1a132f] w-[240px] flex flex-col px-4 py-6 border-r border-white/20 min-h-[90vh]">
             {/* Navigation items */}
             <nav className="flex flex-col gap-4">
                 {navItems.map(({ name, href }) => {

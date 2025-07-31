@@ -15,20 +15,18 @@ export async function POST(req: Request) {
         const objectIds = participants.map((id: string) => new mongoose.Types.ObjectId(id));
         objectIds.sort((a: mongoose.Types.ObjectId, b: mongoose.Types.ObjectId) => a.toString().localeCompare(b.toString()));
 
-        // // Convert string IDs to ObjectId
-        // const participants = [
-        //     new mongoose.Types.ObjectId(UserId1),
-        //     new mongoose.Types.ObjectId(UserId2),
-        // ];
+        const conversationKey = objectIds.map((id: mongoose.Types.ObjectId) => id.toString()).join('_');
+        console.log(conversationKey)
         const existing = await ConversationModel.findOne({
-            participants: { $all: objectIds, $size: 2 },
+            conversationKey
         });
+        console.log(existing)
 
         if (existing) {
             return Response.json(existing, { status: 200 });
         }
 
-        const newConversation = await ConversationModel.create({ participants });
+        const newConversation = await ConversationModel.create({ participants: objectIds , conversationKey });
         return Response.json(newConversation, { status: 201 });
     } catch (error) {
         console.error("Create conversation error:", error);
