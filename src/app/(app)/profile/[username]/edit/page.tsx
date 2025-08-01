@@ -11,7 +11,7 @@ import Image from 'next/image'
 import { Switch } from "@/components/ui/switch"
 import { useRouter } from 'next/navigation'
 
-const page = () => {
+const Page = () => {
     const router = useRouter()
     const [loading, setLoading] = useState(false);
     const [currentAvatar, setCurrentAvatar] = useState<string | null>(null)
@@ -184,4 +184,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

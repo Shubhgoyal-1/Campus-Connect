@@ -12,7 +12,7 @@ import SkillCard from '@/components/user/SkillCard'
 import UserCard from '@/components/user/UserCard'
 import { useDebounceCallback } from 'usehooks-ts'
 
-const page = () => {
+const Page = () => {
     const collegelist = ["KIET", "DTU", "IIT Delhi", "IIT Bombay", "IIT Madras", "IIT Kanpur", "IIT Roorkee", "IIT Kharagpur", "IIT Guwahati", "test"];
     const [users, setUsers] = useState<any[]>([]);
     const [college, setCollege] = useState<string>("");
@@ -199,4 +199,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

@@ -11,7 +11,7 @@ import Silk from '@/components/shared/Silk'
 import Link from 'next/link'
 import {BookOpen,Mail,Lock,EyeOff,Eye, Loader2} from 'lucide-react'
 
-const page = () => {
+const Page = () => {
     const router = useRouter()
 
     const [showPassword, setShowPassword] = useState(false)
@@ -143,4 +143,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

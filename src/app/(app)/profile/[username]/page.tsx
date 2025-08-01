@@ -26,7 +26,7 @@ type UserType = {
     outgoingRequests: MinimalUser[];
 };
 
-const page = () => {
+const Page = () => {
     const params = useParams<{ username: string }>();
     const [user, setUser] = useState<UserType | null>(null);
     const [openConnections, setOpenConnections] = useState(false);
@@ -124,4 +124,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

@@ -12,7 +12,7 @@ import { ApiResponse } from '@/types/ApiResponse'
 import { Loader2 } from 'lucide-react'
 
 
-const page = () => {
+const Page = () => {
   const router = useRouter()
   const params = useParams<{ username: string }>();
 
@@ -76,4 +76,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

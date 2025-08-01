@@ -1,6 +1,5 @@
 import Sidebar from "@/components/layout/SideBar";
 import TopRibbon from "@/components/layout/TopRibbon";
-import Navbar from "@/components/shared/NavBar";
 
 export default function RootLayout({
   children,

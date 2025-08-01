@@ -17,7 +17,7 @@ import { cn } from '@/lib/utils'
 import { Loader2 } from 'lucide-react'
 import SkillCard from '@/components/user/SkillCard'
 
-const page = () => {
+const Page = () => {
     const [username, setUsername] = useState('')
     const [usernameMessage, setUsernameMessage] = useState('')
     const [isCheckingUsername, setIsCheckingUsername] = useState(false)
@@ -188,4 +188,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page
